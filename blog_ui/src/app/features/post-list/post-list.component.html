@@ -1,0 +1,28 @@
+<div *ngIf="loading">Loading posts...</div>
+
+<div class="post-grid">
+  @for (post of posts; track post.id) {
+    <mat-card class="post-card">
+      <mat-card-header>
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle>By {{ post.authorName }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>{{ post.content }}</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="onReact(post, true)">
+          <mat-icon>thumb_up</mat-icon> {{ post.likeCount }}
+        </button>
+        <button mat-button color="warn" (click)="onReact(post, false)">
+          <mat-icon>thumb_down</mat-icon> {{ post.dislikeCount }}
+        </button>
+        <button mat-button (click)="openComments(post.id)">
+          <mat-icon>comment</mat-icon> {{ post.commentsCount }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

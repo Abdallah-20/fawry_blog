@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Comments</h2>
+<mat-dialog-content>
+  @if (loading) {
+    <div class="spinner-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  } @else {
+    <div class="comment-list">
+      @for (comment of comments; track comment.id) {
+        <div class="comment-item">
+          <strong>{{ comment.userName }}</strong>
+          <p>{{ comment.content }}</p>
+        </div>
+      } @empty {
+        <p class="no-comments">No comments yet. Be the first to share your thoughts!</p>
+      }
+    </div>
+
+    <div class="add-comment-section">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Write a comment...</mat-label>
+        <textarea 
+          matInput 
+          rows="3" 
+          [(ngModel)]="newCommentText" 
+          placeholder="What's on your mind?">
+        </textarea>
+      </mat-form-field>
+    </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button 
+    mat-raised-button 
+    color="primary" 
+    (click)="onAddComment()" 
+    [disabled]="!newCommentText.trim() || loading">
+    Post
+  </button>
+</mat-dialog-actions>

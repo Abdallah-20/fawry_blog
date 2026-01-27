@@ -1,0 +1,41 @@
+// Centering the card on the screen
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fafafa; // Light gray background to make the yellow/white card pop
+}
+
+.login-card {
+  width: 100%;
+  max-width: 450px; // Slightly wider for the registration form
+  padding: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+mat-card-header {
+  margin-bottom: 20px;
+  justify-content: center;
+  
+  mat-card-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0 0 0;
+}
+
+// Ensure the yellow primary color is used for the buttons
+button[color="primary"] {
+  padding: 0 24px;
+}

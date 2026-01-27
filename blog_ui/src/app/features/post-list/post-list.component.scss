@@ -1,0 +1,43 @@
+.post-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Centers the feed
+  padding: 20px 16px;  // Padding at start (top) and end (bottom)
+  background-color: #f0f2f5; // Facebook's classic light grey background
+  min-height: 100vh;
+}
+
+.post-card {
+  width: 100%;
+  max-width: 600px;    // Standard feed width
+  margin-bottom: 20px; // Spacing between posts
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important; // Subtle shadow
+  border: none;
+}
+
+mat-card-header {
+  margin-bottom: 12px;
+}
+
+mat-card-content {
+  font-size: 15px;
+  line-height: 1.4;
+  color: #1c1e21;
+}
+
+mat-card-actions {
+  border-top: 1px solid #ebedf0; // Divider before buttons
+  padding: 4px 0;
+  display: flex;
+  justify-content: space-around; // Evenly space like/dislike/comment
+}
+
+button[mat-button] {
+  flex: 1; // Makes buttons take equal width
+  color: #65676b; // Facebook's icon color
+  
+  mat-icon {
+    margin-right: 8px;
+  }
+}

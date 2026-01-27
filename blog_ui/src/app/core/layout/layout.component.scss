@@ -1,0 +1,48 @@
+.fawry-navbar {
+  background-color: #ffc20e !important; // Fawry's signature yellow
+  color: #000; // Black text looks better on this yellow
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 64px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .nav-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%; // Makes the circular logo look clean
+    object-fit: cover;
+  }
+
+  .brand-text {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .user-greeting {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #333;
+  }
+}
+
+.container {
+  background-color: #f0f2f5; // Keep the Facebook-style background for the feed
+  min-height: calc(100vh - 64px);
+  padding-top: 20px;
+}

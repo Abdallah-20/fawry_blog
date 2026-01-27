@@ -1,0 +1,20 @@
+<mat-toolbar class="fawry-navbar">
+  <div class="logo-container">
+    <img src="assets/fawry_logo.jpeg" alt="Fawry Logo" class="nav-logo">
+    <span class="brand-text">Fawry Blog</span>
+  </div>
+
+  <span class="spacer"></span>
+
+  <div class="nav-actions">
+    <span class="user-greeting">Hi, {{ userName }}</span>
+    <button mat-button routerLink="/posts">Posts</button>
+    <button mat-icon-button (click)="onLogout()" matTooltip="Logout">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<main class="container">
+  <router-outlet></router-outlet>
+</main>
