@@ -1,0 +1,1489 @@
+{
+	"info": {
+		"_postman_id": "3713bcd7-da5f-4e2a-9a14-d05301a7ceb3",
+		"name": "OpenAPI definition",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29368314"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "get User By Id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/users/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"users",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"name\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "update User",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"name\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"name\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/users/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"users",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"name\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "delete User",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/users/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"users",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "<string>"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "register",
+							"item": [
+								{
+									"name": "register",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<string>\",\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/users/register",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"register"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"<string>\",\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/users/register",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"register"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"name\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "authenticate",
+							"item": [
+								{
+									"name": "login",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"password\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/users/authenticate",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"authenticate"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"password\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/users/authenticate",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"authenticate"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "<string>"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "get Users",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											},
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"id\": \"<long>\",\n    \"email\": \"<string>\",\n    \"username\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"email\": \"<string>\",\n    \"username\": \"<string>\",\n    \"name\": \"<string>\"\n  }\n]"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "posts",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "get Post By Id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/posts/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"posts",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/posts/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"posts",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<long>\",\n  \"title\": \"<string>\",\n  \"content\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"authorName\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "update Post",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"title\": \"<string>\",\n  \"content\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/posts/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"posts",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"title\": \"<string>\",\n  \"content\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/posts/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"posts",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<long>\",\n  \"title\": \"<string>\",\n  \"content\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"authorName\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "delete Post",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/posts/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"posts",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/posts/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"posts",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "<string>"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "{postId}",
+							"item": [
+								{
+									"name": "{username}",
+									"item": [
+										{
+											"name": "react",
+											"item": [
+												{
+													"name": "{isLike}",
+													"item": [
+														{
+															"name": "react",
+															"request": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/posts/:postId/:username/react/:isLike",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"posts",
+																		":postId",
+																		":username",
+																		"react",
+																		":isLike"
+																	],
+																	"variable": [
+																		{
+																			"key": "postId",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		},
+																		{
+																			"key": "username",
+																			"value": "<string>",
+																			"description": "(Required) "
+																		},
+																		{
+																			"key": "isLike",
+																			"value": "<boolean>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "OK",
+																	"originalRequest": {
+																		"method": "POST",
+																		"header": [
+																			{
+																				"key": "Accept",
+																				"value": "*/*"
+																			},
+																			{
+																				"description": "Added as a part of security scheme: bearer",
+																				"key": "Authorization",
+																				"value": "Bearer <token>"
+																			}
+																		],
+																		"url": {
+																			"raw": "{{baseUrl}}/api/posts/:postId/:username/react/:isLike",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"api",
+																				"posts",
+																				":postId",
+																				":username",
+																				"react",
+																				":isLike"
+																			],
+																			"variable": [
+																				{
+																					"key": "postId"
+																				},
+																				{
+																					"key": "username"
+																				},
+																				{
+																					"key": "isLike"
+																				}
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "text",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "*/*"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "{\n  \"message\": \"<string>\",\n  \"result\": \"<string>\"\n}"
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "comments",
+									"item": [
+										{
+											"name": "get Comments",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/posts/:postId/comments",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"posts",
+														":postId",
+														"comments"
+													],
+													"variable": [
+														{
+															"key": "postId",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															},
+															{
+																"description": "Added as a part of security scheme: bearer",
+																"key": "Authorization",
+																"value": "Bearer <token>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/posts/:postId/comments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"posts",
+																":postId",
+																"comments"
+															],
+															"variable": [
+																{
+																	"key": "postId"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"message\": \"<string>\",\n  \"result\": [\n    {\n      \"username\": \"<string>\",\n      \"postId\": \"<long>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"username\": \"<string>\",\n      \"postId\": \"<long>\",\n      \"content\": \"<string>\"\n    }\n  ]\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "comment",
+							"item": [
+								{
+									"name": "add Comment",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"username\": \"<string>\",\n  \"postId\": \"<long>\",\n  \"content\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/posts/comment",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"posts",
+												"comment"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"username\": \"<string>\",\n  \"postId\": \"<long>\",\n  \"content\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/posts/comment",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"posts",
+														"comment"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"message\": \"<string>\",\n  \"result\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "stats",
+							"item": [
+								{
+									"name": "{postId}",
+									"item": [
+										{
+											"name": "get Post Stats",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/posts/stats/:postId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"posts",
+														"stats",
+														":postId"
+													],
+													"variable": [
+														{
+															"key": "postId",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															},
+															{
+																"description": "Added as a part of security scheme: bearer",
+																"key": "Authorization",
+																"value": "Bearer <token>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/posts/stats/:postId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"posts",
+																"stats",
+																":postId"
+															],
+															"variable": [
+																{
+																	"key": "postId"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"magna9ac\": {}\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "retweet",
+							"item": [
+								{
+									"name": "{postId}",
+									"item": [
+										{
+											"name": "post Tweet",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/posts/retweet/:postId?clientRegistration=[object Object]&principalName=<string>&accessToken=[object Object]&refreshToken=[object Object]",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"posts",
+														"retweet",
+														":postId"
+													],
+													"query": [
+														{
+															"key": "clientRegistration",
+															"value": "[object Object]",
+															"description": "(Required) "
+														},
+														{
+															"key": "principalName",
+															"value": "<string>",
+															"description": "(Required) "
+														},
+														{
+															"key": "accessToken",
+															"value": "[object Object]",
+															"description": "(Required) "
+														},
+														{
+															"key": "refreshToken",
+															"value": "[object Object]",
+															"description": "(Required) "
+														}
+													],
+													"variable": [
+														{
+															"key": "postId",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															},
+															{
+																"description": "Added as a part of security scheme: bearer",
+																"key": "Authorization",
+																"value": "Bearer <token>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/posts/retweet/:postId?clientRegistration=[object Object]&principalName=<string>&accessToken=[object Object]&refreshToken=[object Object]",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"posts",
+																"retweet",
+																":postId"
+															],
+															"query": [
+																{
+																	"key": "clientRegistration",
+																	"value": "[object Object]",
+																	"description": "(Required) "
+																},
+																{
+																	"key": "principalName",
+																	"value": "<string>",
+																	"description": "(Required) "
+																},
+																{
+																	"key": "accessToken",
+																	"value": "[object Object]",
+																	"description": "(Required) "
+																},
+																{
+																	"key": "refreshToken",
+																	"value": "[object Object]",
+																	"description": "(Required) "
+																}
+															],
+															"variable": [
+																{
+																	"key": "postId"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "<string>"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "get All Posts",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"posts"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											},
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/posts",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"posts"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"id\": \"<long>\",\n    \"title\": \"<string>\",\n    \"content\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"authorName\": \"<string>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"title\": \"<string>\",\n    \"content\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"authorName\": \"<string>\"\n  }\n]"
+								}
+							]
+						},
+						{
+							"name": "create Post",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"posts"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											},
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/posts",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"posts"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<long>\",\n  \"title\": \"<string>\",\n  \"content\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"authorName\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
