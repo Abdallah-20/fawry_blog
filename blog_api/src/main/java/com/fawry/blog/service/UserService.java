@@ -1,5 +1,6 @@
 package com.fawry.blog.service;
 
+import com.fawry.blog.dto.user.RegisterRequest;
 import com.fawry.blog.dto.user.UserRequest;
 import com.fawry.blog.dto.user.UserResponse;
 import com.fawry.blog.dto.user.UserUpdateRequest;
@@ -25,17 +26,22 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserResponse registerUser(UserRequest request) {
+    public UserResponse registerUser(RegisterRequest request) {
         if (userRepository.existsByEmail(request.email())) {
             throw new DuplicateResourceException("Email '" + request.email() + "' is already registered!");        }
-        if (userRepository.existsByUsername(request.username())) {
-            throw new DuplicateResourceException("Username '" + request.username() + "' is already taken!");        }
+        if (userRepository.existsByUsername(request.name())) {
+            throw new DuplicateResourceException("Username '" + request.name() + "' is already taken!");        }
 
         User user = new User();
         user.setEmail(request.email());
-        user.setUsername(request.username());
+        user.setUsername(request.name());
         user.setName(request.name());
-        user.setPassword(passwordEncoder.encode(request.password()));
+        if(request.password().equals(request.confirmPassword())) {
+            user.setPassword(passwordEncoder.encode(request.password()));
+        }else {
+            throw new RuntimeException("The passowrd dosen't match");
+        }
+
 
         User savedUser = userRepository.save(user);
         return mapToResponse(savedUser);
@@ -65,9 +71,9 @@ public class UserService {
     }
 
     // UPDATE
-    public UserResponse updateUser(Long id, UserUpdateRequest request) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+    public UserResponse updateUser(String userName, UserUpdateRequest request) {
+        User user = userRepository.findByUsername(userName)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with: " + userName));
 
 
         if (request.username() != null && !request.username().isBlank()) {

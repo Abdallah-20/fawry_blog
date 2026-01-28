@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   register(userData: any) {
-    return this.http.post<User>(`${this.API_URL}/auth/register`, userData).pipe(
+    return this.http.post<User>(`${this.API_URL}/register`, userData).pipe(
       tap((user) => {
         // After registration, we usually log them in automatically
         this.currentUser.set(user);
@@ -55,7 +55,16 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.clear();
     this.currentUser.set(null);
-    localStorage.removeItem('blog_token');
+    // localStorage.removeItem('blog_token');
+  }
+
+  getUserData(userName: string): Observable<User> {
+    return this.http.get<User>(`${this.API_URL}/getByUserName/${userName}`);
+  }
+
+  updateUser(user: User): Observable<any> {
+    return this.http.put<any>(`${this.API_URL}/${user.username}`, user);
   }
 }

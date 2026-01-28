@@ -1,9 +1,6 @@
 package com.fawry.blog.controller;
 
-import com.fawry.blog.dto.user.LoginRequest;
-import com.fawry.blog.dto.user.UserRequest;
-import com.fawry.blog.dto.user.UserResponse;
-import com.fawry.blog.dto.user.UserUpdateRequest;
+import com.fawry.blog.dto.user.*;
 import com.fawry.blog.security.JwtUtil;
 import com.fawry.blog.service.UserService;
 import jakarta.validation.Valid;
@@ -31,7 +28,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/register")
-    public ResponseEntity<UserResponse> register(@Valid @RequestBody UserRequest request) {
+    public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request) {
         return ResponseEntity.status(201).body(userService.registerUser(request));
     }
 
@@ -62,9 +59,16 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest user) {
-        return ResponseEntity.ok(userService.updateUser(id, user));
+    @GetMapping("/getByUserName/{userName}")
+    public ResponseEntity<UserResponse> getUserByUserName(@PathVariable String userName) {
+        return ResponseEntity.ok(userService.getUserByUsername(userName));
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/{userName}")
+    public ResponseEntity<UserResponse> updateUser(@PathVariable String userName, @Valid @RequestBody UserUpdateRequest user) {
+        return ResponseEntity.ok(userService.updateUser(userName, user));
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

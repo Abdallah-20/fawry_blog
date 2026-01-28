@@ -1,9 +1,6 @@
 package com.fawry.blog.service;
 
-import com.fawry.blog.dto.post.CommentResponse;
-import com.fawry.blog.dto.post.PostRequest;
-import com.fawry.blog.dto.post.PostResponse;
-import com.fawry.blog.dto.post.PutRequest;
+import com.fawry.blog.dto.post.*;
 import com.fawry.blog.entity.Comment;
 import com.fawry.blog.entity.Post;
 import com.fawry.blog.entity.Reaction;
@@ -19,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -116,12 +114,21 @@ public class PostService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
 
-        Reaction reaction = new Reaction();
-        reaction.setPost(post);
-        reaction.setUser(user);
-        reaction.setLike(isLike);
+        Optional<Reaction> existingReaction = Optional.ofNullable(reactionRepository.findByUserIdAndPostId(user.getId(), postId));
 
-        reactionRepository.save(reaction);
+        if (existingReaction.isPresent()) {
+            Reaction reaction = existingReaction.get();
+            reaction.setLike(isLike);
+            reactionRepository.save(reaction);
+        } else {
+            Reaction newReaction = new Reaction();
+            newReaction.setLike(isLike);
+            reactionRepository.save(newReaction);
+        }
+    }
+
+    public Optional<Reaction> getReactionByUserId(Long UserId, Long PostId){
+        return Optional.ofNullable(reactionRepository.findByUserIdAndPostId(UserId, PostId));
     }
 
     @Transactional(readOnly = true)
@@ -152,7 +159,9 @@ public class PostService {
                 post.getTitle(),
                 post.getContent(),
                 post.getCreatedAt(),
-                post.getUser().getName()
+                post.getUser().getName(),
+                post.getReactions().stream()
+                        .map((reaction) -> new ReactionResponse(reaction.getLike(), reaction.getUser().getUsername())).toList()
         );
     }
 }

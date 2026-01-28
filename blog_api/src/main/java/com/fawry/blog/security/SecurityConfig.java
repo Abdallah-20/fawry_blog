@@ -57,7 +57,7 @@ public class SecurityConfig {
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(xUserService())
                         )
-                        .defaultSuccessUrl("/api/posts/retweet/8", true)
+                        .defaultSuccessUrl("/api/posts/retweet", true)
                 );
 
         return http.build();

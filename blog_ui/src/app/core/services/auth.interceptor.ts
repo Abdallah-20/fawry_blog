@@ -4,6 +4,8 @@ import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
+const excludedUrls = ["/authenticate"];
+
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   
@@ -12,7 +14,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   
   // Clone request and add authorization header if token exists
   let authReq = req;
-  if (token) {
+  console.log(req);
+  if (!excludedUrls.includes(req.url) && token) {
     authReq = req.clone({
       setHeaders: {
         "Authorization": `Bearer ${token}`,

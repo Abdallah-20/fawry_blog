@@ -31,7 +31,11 @@ export class PostService {
   }
 
   react(postId: number, isLike: boolean) {
-    const username = this.authService.getUserName()
-    return this.http.post<any>(`${this.apiUrl}/${postId}/${username}/react/${isLike}`, null);
+    const userName = this.authService.getUserName()
+    return this.http.post<any>(`${this.apiUrl}/${postId}/${userName}/react/${isLike}`, null);
+  }
+
+    retweet(postId: string) {
+    return this.http.post<any>(`${this.apiUrl}/tweet/${postId}`, null);
   }
 }

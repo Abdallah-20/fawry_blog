@@ -5,6 +5,7 @@ import com.fawry.blog.dto.post.CommentResponse;
 import com.fawry.blog.dto.post.PostRequest;
 import com.fawry.blog.dto.post.PostResponse;
 import com.fawry.blog.dto.post.PutRequest;
+import com.fawry.blog.entity.Reaction;
 import com.fawry.blog.service.PostService;
 import com.fawry.blog.service.UserService;
 import jakarta.validation.Valid;
@@ -18,6 +19,7 @@ import org.springframework.web.client.RestClient;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -26,6 +28,7 @@ public class PostController {
     private final PostService postService;
     private final UserService userService;
     private final RestClient restClient;
+    static Long temp;
 
     public PostController(PostService postService, UserService userService, RestClient.Builder restClientBuilder) {
         this.postService = postService;
@@ -110,14 +113,32 @@ public class PostController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/retweet/{postId}")
+    @GetMapping("/reaction/{postId}/{userId}")
+    public ResponseEntity<Response<Optional<Reaction>>> getPostReaction(@PathVariable Long postId, @PathVariable Long userId) {
+        Optional<Reaction> reaction = postService.getReactionByUserId(userId, postId);
+        Response<Optional<Reaction>> response = new Response<Optional<Reaction>>("Reaction retrieved successfully.", reaction);
+        return ResponseEntity.ok(response);
+    }
+
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/tweet/{postId}")
+    public void tweetPostId(
+            @PathVariable Long postId){
+        temp = postId;
+        System.out.println(1);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/retweet")
     public String postTweet(
-            @PathVariable Long postId,
             @RegisteredOAuth2AuthorizedClient("twitter") OAuth2AuthorizedClient client
     ) {
 
+        System.out.println(temp);
         String accessToken = client.getAccessToken().getTokenValue();
-        String tweetText = postService.getPostById(postId).toString();
+        String tweetText = postService.getPostById(temp).toString();
 
         try {
             return restClient.post()

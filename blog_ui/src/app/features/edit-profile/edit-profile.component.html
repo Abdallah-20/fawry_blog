@@ -1,0 +1,45 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Edit Profile</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="editProfileForm" (ngSubmit)="onEditProfile()">
+      <mat-card-content>
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="name" placeholder="John Doe" />
+          @if (editProfileForm.get('name')?.invalid) {
+            <mat-error>Name is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>UserName</mat-label>
+          <input matInput formControlName="username" type="username" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" />
+        </mat-form-field>
+
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+        >
+          Save
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

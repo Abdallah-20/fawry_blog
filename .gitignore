@@ -43,3 +43,4 @@ Thumbs.db
 blog_ui\.angular
 blog_ui/node_modules/
 blog_ui/package-lock.json
+/blog_ui/.angular

@@ -35,9 +35,20 @@ mat-card-actions {
 
 button[mat-button] {
   flex: 1; // Makes buttons take equal width
-  color: #65676b; // Facebook's icon color
+  // color: #65676b; // Facebook's icon color
   
   mat-icon {
     margin-right: 8px;
+  }
+}
+.likes-count {
+  padding: 0 20px;
+}
+.rating {
+  width: 20%;
+  padding: 0 20px;
+  .rating-label {
+    font-size: 12px;
+    padding: 4px 0;
   }
 }
