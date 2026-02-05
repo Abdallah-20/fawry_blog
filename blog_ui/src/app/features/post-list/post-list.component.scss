@@ -1,3 +1,23 @@
+.card-header-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box; // Ensures padding doesn't add to width
+  overflow: hidden;       // Prevents children from pushing the card wider
+}
+
+/* This pushes the buttons to the right */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Add a little gap between the two buttons */
+.button-group {
+  display: flex;
+  gap: 1px;
+}
+
 .post-grid {
   display: flex;
   flex-direction: column;
@@ -37,7 +57,7 @@ button[mat-button] {
   flex: 1; // Makes buttons take equal width
   // color: #65676b; // Facebook's icon color
   
-  mat-icon {
+  mat-icon:not(.no-margin) {
     margin-right: 8px;
   }
 }

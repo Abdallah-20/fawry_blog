@@ -11,6 +11,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'posts', loadComponent: () => import('./features/post-list/post-list.component').then(m => m.PostListComponent) },
+      { path: 'my-posts', loadComponent: () => import('./features/post-list/post-list.component').then(m => m.PostListComponent), data: { mode: 'mine' } },
       { path: 'profile', loadComponent: () => import('./features/edit-profile/edit-profile.component').then(m => m.EditProfileComponent) },
       // Change this: Ensure the base path of the layout always goes to posts
       { path: '', redirectTo: 'posts', pathMatch: 'full' } 

@@ -14,13 +14,21 @@ export interface CommentData {
 export class PostService {
   private apiUrl = 'http://localhost:8080/api/posts';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.apiUrl}`);
   }
 
-  getPostComments(postId: string): Observable<any>{
+  getPostsByUserName(): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.apiUrl}/me`);
+  }
+
+  createPost(postData: any): Observable<Post[]> {
+    return this.http.post<Post[]>(`${this.apiUrl}`, postData);
+  }
+
+  getPostComments(postId: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${postId}/comments`).pipe(
       map(res => res.result)
     )
@@ -35,7 +43,16 @@ export class PostService {
     return this.http.post<any>(`${this.apiUrl}/${postId}/${userName}/react/${isLike}`, null);
   }
 
-    retweet(postId: string) {
+  deletePost(postId: string) {
+    return this.http.delete(`${this.apiUrl}/${postId}`, { responseType: 'text' });
+  }
+
+  updatePost(postId: string, postData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${postId}`, postData);
+  }
+
+  retweet(postId: string) {
     return this.http.post<any>(`${this.apiUrl}/tweet/${postId}`, null);
   }
+
 }

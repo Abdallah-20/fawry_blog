@@ -1,0 +1,39 @@
+<div class="create-post-form">
+    <mat-accordion class="full-width-accordion">
+        <mat-expansion-panel hideToggle="false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>Create a New Post</strong>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Share your thoughts...
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <form (ngSubmit)="onSubmit()" #postForm="ngForm">
+                <div class="panel-content-wrapper">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Title</mat-label>
+                        <input matInput name="title" [(ngModel)]="title" required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Content</mat-label>
+                        <textarea matInput name="content" [(ngModel)]="content" required rows="4"></textarea>
+                    </mat-form-field>
+
+                    <div class="actions-row">
+                        <button mat-flat-button color="primary" type="submit" [disabled]="postForm.invalid || loading">
+                            {{ loading ? 'Posting...' : 'Post' }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+            <div *ngIf="error" class="error-message">{{ error }}</div>
+            <div *ngIf="success" class="success-message">Post created successfully!</div>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

@@ -1,10 +1,20 @@
 <div *ngIf="loading">Loading posts...</div>
-
+<app-create-post></app-create-post>
 <div class="post-grid">
   @for (post of posts; track post.id) {
   <mat-card class="post-card">
-    <mat-card-header>
+    <mat-card-header class="card-header-container">
+
       <mat-card-title>{{ post.title }}</mat-card-title>
+      <span class="spacer"></span>
+      <div class="button-group">
+        <button mat-button color="primary" *ngIf="isMyPostsPage()" (click)="onEdit(post)">
+          <mat-icon class="no-margin">edit</mat-icon>
+        </button>
+        <button mat-button color="warn" *ngIf="isMyPostsPage()" (click)="onDelete(post)">
+          <mat-icon class="no-margin">delete</mat-icon>
+        </button>
+      </div>
       <mat-card-subtitle>By {{ post.authorName }}</mat-card-subtitle>
     </mat-card-header>
 
@@ -15,20 +25,15 @@
     <mat-card-actions>
       <div class="rating">
         <span class="rating-label">Rating%</span>
-        <mat-progress-bar 
-          mode="determinate" 
-          [value]="calculateApprovalRating(post)"
-          [color]="getRatingTheme(post)">
+        <mat-progress-bar mode="determinate" [value]="calculateApprovalRating(post)" [color]="getRatingTheme(post)">
         </mat-progress-bar>
       </div>
 
-      <button mat-button [color]="post.isLiked === true ? 'primary' : ''"
-        (click)="onReact(post, true)">
+      <button mat-button [color]="post.isLiked === true ? 'primary' : ''" (click)="onReact(post, true)">
         <mat-icon>thumb_up_alt</mat-icon>
         {{ post.likeCount }}
       </button>
-      <button mat-button [color]="post.isLiked === false ? 'accent' :''"
-        (click)="onReact(post, false)">
+      <button mat-button [color]="post.isLiked === false ? 'accent' :''" (click)="onReact(post, false)">
         <mat-icon>thumb_down</mat-icon>
         {{ post.dislikeCount }}
       </button>
@@ -38,10 +43,10 @@
       <button mat-button (click)="onShare(post.id)">
         <mat-icon>share</mat-icon>
       </button>
-      @if (post?.reactions?.length) {        
-        <div class="likes-count">
-          {{post?.reactions?.length}} Likes
-        </div>
+      @if (post?.reactions?.length) {
+      <div class="likes-count">
+        {{post?.reactions?.length}} Likes
+      </div>
       }
     </mat-card-actions>
   </mat-card>

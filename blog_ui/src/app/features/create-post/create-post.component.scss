@@ -1,0 +1,125 @@
+.create-post-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px;
+  background-color: #f0f2f5;
+  margin-bottom: 20px;
+}
+
+mat-card {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px; // Slightly rounder for a friendlier feel
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important; // Softer, deeper shadow
+  border: none;
+  background: #ffffff;
+}
+
+mat-card-header {
+  margin-bottom: 16px;
+  
+  mat-card-title {
+    font-weight: 700;
+    color: #1c1e21;
+    font-size: 1.2rem;
+  }
+}
+
+/* Modernizing the form fields */
+.full-width {
+  width: 100%;
+  margin-bottom: 4px;
+
+  /* This targets the internal padding of the Material input to look cleaner */
+  ::v-deep .mat-mdc-text-field-wrapper {
+    background-color: #f7f8fa !important;
+    border-radius: 8px !important;
+  }
+}
+
+mat-card-actions {
+  border-top: 1px solid #ebedf0;
+  padding: 12px 16px; // Added horizontal padding for alignment
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Refined Button Style */
+button[mat-raised-button] {
+  border-radius: 6px;
+  padding: 0 24px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: none !important; // Flat design is more modern
+  
+  &:not([disabled]) {
+    background-color: #1877f2; // A more vibrant "action" blue
+  }
+}
+
+.error-message {
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px 16px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.success-message {
+  color: #2e7d32;
+  background-color: #e8f5e9;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px 16px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.full-width-accordion {
+  width: 100%;
+  max-width: 600px;
+}
+
+mat-expansion-panel {
+  border-radius: 12px !important; // Match your card design
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+  border: none;
+  overflow: hidden;
+
+  /* Header styling */
+  mat-expansion-panel-header {
+    height: 64px; // Slightly taller for a better click target
+    &:hover {
+      background: #fcfcfc !important;
+    }
+  }
+}
+
+.panel-content-wrapper {
+  padding-top: 16px;
+}
+
+.actions-row {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+  border-top: 1px solid #ebedf0;
+}
+
+/* Ensure messages look good inside the accordion */
+.error-message, .success-message {
+  margin: 16px 0 0 0;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Button override for the flat look */
+button[mat-flat-button] {
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 0 24px;
+}
