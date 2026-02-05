@@ -57,6 +57,14 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
+    public List<PostResponse> getPostsByUserId(String username) {
+        Long currentUserId = userRepository.findByUsername(username).get().getId();
+        return postRepository.findByUserId(currentUserId).stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public PostResponse getPostById(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + id));
@@ -122,6 +130,8 @@ public class PostService {
             reactionRepository.save(reaction);
         } else {
             Reaction newReaction = new Reaction();
+            newReaction.setPost(post);
+            newReaction.setUser(user);
             newReaction.setLike(isLike);
             reactionRepository.save(newReaction);
         }

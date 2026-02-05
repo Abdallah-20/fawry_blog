@@ -51,6 +51,13 @@ public class PostController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/me")
+    public ResponseEntity<List<PostResponse>> getUsersPost() {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ResponseEntity.ok(postService.getPostsByUserId(userName));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<PostResponse> getPostById(@PathVariable Long id) {
         return ResponseEntity.ok(postService.getPostById(id));
@@ -127,7 +134,6 @@ public class PostController {
     public void tweetPostId(
             @PathVariable Long postId){
         temp = postId;
-        System.out.println(1);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -136,7 +142,6 @@ public class PostController {
             @RegisteredOAuth2AuthorizedClient("twitter") OAuth2AuthorizedClient client
     ) {
 
-        System.out.println(temp);
         String accessToken = client.getAccessToken().getTokenValue();
         String tweetText = postService.getPostById(temp).toString();
 
