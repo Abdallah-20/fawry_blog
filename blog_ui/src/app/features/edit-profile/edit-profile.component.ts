@@ -7,6 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-edit-profile',
@@ -35,7 +37,7 @@ export class EditProfileComponent implements OnInit{
     },
   );
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.authService.getUserData(this.authService.getUserName()).subscribe({
@@ -61,6 +63,11 @@ export class EditProfileComponent implements OnInit{
       next: res => {
         localStorage.clear();
         this.router.navigate(["/login"]);
+        this.snackBar.open('Profile updated successfully', 'Close', { duration: 3000 })
+      },
+      error: (err) => {
+        console.error('Failed to update profile:', err);
+        this.snackBar.open('Failed to update profile', 'Close', { duration: 3000 })
       }
     })
   }

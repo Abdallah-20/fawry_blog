@@ -51,8 +51,17 @@ export class PostService {
     return this.http.put<any>(`${this.apiUrl}/${postId}`, postData);
   }
 
+  getTwitterAuthUrl() {
+  return this.http.get<{url: string}>('http://127.0.0.1:8080/api/posts/tweet', {
+    withCredentials: true 
+  });
+}
+
   retweet(postId: string) {
-    return this.http.post<any>(`${this.apiUrl}/tweet/${postId}`, null);
+    console.log('Retweeting post with ID:', postId);
+    return this.http.post<string>(`http://127.0.0.1:8080/api/posts/retweet/${postId}`, null, {
+      responseType: 'text' as 'json'
+    });
   }
 
 }

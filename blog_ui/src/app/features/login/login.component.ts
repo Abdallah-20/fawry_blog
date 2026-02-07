@@ -30,6 +30,7 @@ export class LoginComponent {
   private fb: FormBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
   private router: Router = inject(Router);
+  errorMessage: string | null = null;
 
   loginForm: FormGroup = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(5)]],
@@ -37,11 +38,14 @@ export class LoginComponent {
   });
 
   onSubmit() {
+    this.errorMessage = null;
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => this.router.navigate(['/posts']),
-        error: (err) => console.error('Login failed', err),
-      });
+        error: (err) => {
+          this.errorMessage = 'Invalid UserName or Password';
+          console.error('Login failed', err)
+      }});
     }
   }
 }

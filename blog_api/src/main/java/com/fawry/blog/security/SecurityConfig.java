@@ -14,13 +14,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestCustomizers;
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.*;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Map;
 
 @Configuration
@@ -44,20 +47,21 @@ public class SecurityConfig {
     @Order(1) // Higher priority
     public SecurityFilterChain oauth2FilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/api/posts/share/**", "/oauth2/**", "/login/oauth2/**","/api/posts/retweet/**")
-                .cors(Customizer.withDefaults())
+                .securityMatcher("/api/posts/share/**", "/oauth2/**", "/login/oauth2/**","/api/posts/retweet/**","/login/**")
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().authenticated()
                 ).oauth2Login(oauth2 -> oauth2
                         .authorizationEndpoint(auth -> auth
+                                .authorizationRequestRepository(authorizationRequestRepository())
                                 .authorizationRequestResolver(pkceResolver(clientRegistrationRepository))
                         )
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(xUserService())
                         )
-                        .defaultSuccessUrl("/api/posts/retweet", true)
+                        .successHandler(new TwitterSuccessHandler())
                 );
 
         return http.build();
@@ -72,7 +76,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPoint))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/register", "/api/users/authenticate").permitAll()
+                        .requestMatchers("/api/users/register", "/api/users/authenticate","/api/posts/tweet").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -92,6 +96,10 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+    @Bean
+    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
+        return new HttpSessionOAuth2AuthorizationRequestRepository();
+    }
 
 
     @Bean
@@ -100,6 +108,8 @@ public class SecurityConfig {
         resolver.setAuthorizationRequestCustomizer(OAuth2AuthorizationRequestCustomizers.withPkce());
         return resolver;
     }
+
+
 
     @Bean
     public DefaultOAuth2UserService xUserService() {
@@ -111,6 +121,19 @@ public class SecurityConfig {
             return attributes;
         });
         return service;
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS","PUT","DELETE"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true); // <--- MUST BE TRUE
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean

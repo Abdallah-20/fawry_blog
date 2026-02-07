@@ -1,5 +1,5 @@
 <div *ngIf="loading">Loading posts...</div>
-<app-create-post></app-create-post>
+<app-create-post (postCreated)="getPosts()"></app-create-post>
 <div class="post-grid">
   @for (post of posts; track post.id) {
   <mat-card class="post-card">
@@ -25,7 +25,7 @@
     <mat-card-actions>
       <div class="rating">
         <span class="rating-label">Rating%</span>
-        <mat-progress-bar mode="determinate" [value]="calculateApprovalRating(post)" [color]="getRatingTheme(post)">
+        <mat-progress-bar mode="determinate" [value]="calculateNetRating(post)" [color]="getRatingTheme(post)">
         </mat-progress-bar>
       </div>
 
@@ -45,7 +45,7 @@
       </button>
       @if (post?.reactions?.length) {
       <div class="likes-count">
-        {{post?.reactions?.length}} Likes
+        {{post?.reactions?.length}} Reactions
       </div>
       }
     </mat-card-actions>

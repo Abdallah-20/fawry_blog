@@ -51,7 +51,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<PostResponse> getAllPosts() {
-        return postRepository.findAll().stream()
+        return postRepository.findAllByOrderByCreatedAtDesc().stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
@@ -59,7 +59,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostResponse> getPostsByUserId(String username) {
         Long currentUserId = userRepository.findByUsername(username).get().getId();
-        return postRepository.findByUserId(currentUserId).stream()
+        return postRepository.findByUserIdOrderByCreatedAtDesc(currentUserId).stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
@@ -116,19 +116,28 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional // Added to ensure database consistency
     public void processReaction(Long postId, String username, boolean isLike) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + postId));
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
 
-        Optional<Reaction> existingReaction = Optional.ofNullable(reactionRepository.findByUserIdAndPostId(user.getId(), postId));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
+
+        Optional<Reaction> existingReaction = Optional.ofNullable(
+                reactionRepository.findByUserIdAndPostId(user.getId(), postId));
 
         if (existingReaction.isPresent()) {
             Reaction reaction = existingReaction.get();
-            reaction.setLike(isLike);
-            reactionRepository.save(reaction);
+
+            if (reaction.getLike() == isLike) {
+                reactionRepository.delete(reaction);
+            } else {
+                reaction.setLike(isLike);
+                reactionRepository.save(reaction);
+            }
         } else {
+            // No reaction exists yet -> Create a new one
             Reaction newReaction = new Reaction();
             newReaction.setPost(post);
             newReaction.setUser(user);

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Optional, Inject } from '@angular/core';
+import { Component, Input, OnInit, Optional, Inject, output, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'; import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -37,6 +37,7 @@ export class CreatePostComponent {
   loading: boolean = false;
   error: string | null = null;
   success: boolean = false;
+  @Output() postCreated = new EventEmitter<void>();
 
   constructor(private postService: PostService,
     @Optional() private dialogRef?: MatDialogRef<CreatePostComponent>,
@@ -81,6 +82,7 @@ export class CreatePostComponent {
         this.title = '';
         this.content = '';
         this.postForm.resetForm();
+        this.postCreated.emit();
       },
       error: (err) => {
         this.loading = false;

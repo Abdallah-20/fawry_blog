@@ -8,12 +8,17 @@ import com.fawry.blog.dto.post.PutRequest;
 import com.fawry.blog.entity.Reaction;
 import com.fawry.blog.service.PostService;
 import com.fawry.blog.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 
@@ -28,12 +33,16 @@ public class PostController {
     private final PostService postService;
     private final UserService userService;
     private final RestClient restClient;
+    private final OAuth2AuthorizationRequestResolver resolver;
+    private final AuthorizationRequestRepository<OAuth2AuthorizationRequest> authRequestRepository;
     static Long temp;
 
-    public PostController(PostService postService, UserService userService, RestClient.Builder restClientBuilder) {
+    public PostController(PostService postService, UserService userService, RestClient.Builder restClientBuilder, OAuth2AuthorizationRequestResolver resolver, AuthorizationRequestRepository<OAuth2AuthorizationRequest> authRequestRepository) {
         this.postService = postService;
         this.userService = userService;
         this.restClient = restClientBuilder.build();
+        this.resolver = resolver;
+        this.authRequestRepository = authRequestRepository;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -130,27 +139,36 @@ public class PostController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/tweet/{postId}")
-    public void tweetPostId(
-            @PathVariable Long postId){
-        temp = postId;
+    @GetMapping("/tweet")
+    public ResponseEntity<Map<String, String>> getTwitterAuthUrl(HttpServletRequest request, HttpServletResponse response) {
+        // 1. Generate the request (with PKCE, state, etc.)
+        OAuth2AuthorizationRequest authRequest = resolver.resolve(request, "twitter");
+
+        if (authRequest == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        authRequestRepository.saveAuthorizationRequest(authRequest, request, response);
+
+        return ResponseEntity.ok(Map.of("url", authRequest.getAuthorizationRequestUri()));
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/retweet")
+    @PostMapping("/retweet/{postId}")
     public String postTweet(
-            @RegisteredOAuth2AuthorizedClient("twitter") OAuth2AuthorizedClient client
+            @RegisteredOAuth2AuthorizedClient("twitter") OAuth2AuthorizedClient client,
+            @PathVariable Long postId
     ) {
 
         String accessToken = client.getAccessToken().getTokenValue();
-        String tweetText = postService.getPostById(temp).toString();
+        String tweetText = postService.getPostById(postId).toString();
 
         try {
             return restClient.post()
                     .uri("https://api.twitter.com/2/tweets")
                     .header("Authorization", "Bearer " + accessToken)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(Map.of("text", tweetText)) // Twitter expects a JSON object with a 'text' field
+                    .body(Map.of("text", tweetText))
                     .retrieve()
                     .body(String.class);
         } catch (Exception e) {

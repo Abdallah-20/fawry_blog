@@ -31,6 +31,7 @@ export class PostListComponent {
   posts: Post[] = [];
   loading: boolean = true;
   isSharing = false;
+  flag = 0;
 
   constructor(private postService: PostService, private authService: AuthService, private snackBar: MatSnackBar) { }
 
@@ -49,7 +50,7 @@ export class PostListComponent {
     this.getPosts();
   }
 
-  private getPosts() {
+  getPosts() {
     const obs = this.mode === 'mine'
       ? this.postService.getPostsByUserName()
       : this.postService.getPosts();
@@ -126,26 +127,68 @@ export class PostListComponent {
   }
 
   onShare(postId: string) {
-    console.log(postId);
-    this.postService.retweet(postId).subscribe();
-    window.open("http://127.0.0.1:8080/oauth2/authorization/twitter", "_blank")
+    this.postService.getTwitterAuthUrl().subscribe({
+      next: (res) => {
+        const popup = window.open(res.url, "_blank", "width=600,height=600");
+
+        const messageListener = (event: MessageEvent) => {
+          console.log("Received message from popup:", event.data);
+          if (event.origin !== 'http://127.0.0.1:8080') return;
+
+          if (event.data.status === 'success') {
+            console.log("Auth success! Now retweeting...");
+
+            this.postService.retweet(postId).subscribe({
+              next: (retweetRes) => {
+                this.snackBar.open('Successfully retweeted!', 'Close', { duration: 3000 });
+              },
+              error: (err) => console.error("Retweet failed", err)
+            });
+
+            window.removeEventListener('message', messageListener);
+          }
+        };
+
+        window.addEventListener('message', messageListener);
+      },
+      error: (err) => console.error('Could not get URL', err)
+    });
   }
 
-  calculateApprovalRating(post: any): number {
-    const totalReactions = post.likeCount + post.dislikeCount;
+  calculateNetRating(post: any): number {
+    const likes = post.likeCount || 0;
+    const dislikes = post.dislikeCount || 0;
+    const total = likes + dislikes;
 
-    if (totalReactions === 0) {
+    this.flag = 4;
+
+    if (total == 0) {
+      this.flag = 0;
       return 0;
     }
+    if (likes == 0) {
+      this.flag = 1;
+      return 100;
+    };
+    if (dislikes == 0) {
+      this.flag = 2;
+      return 100;
+    };
 
-    const rating = (post.likeCount / totalReactions) * 100;
-    return Math.round(rating);
+    const netRating = (likes / total) * 100;
+    return Math.round(netRating);
   }
 
   getRatingTheme(post: any): string {
-    const rating = this.calculateApprovalRating(post);
-    if (rating >= 70) return 'primary';
-    if (rating >= 40) return 'accent';
+    const rating = this.calculateNetRating(post);
+
+    if (this.flag == 0) return '';
+    if (this.flag == 2) return 'primary';
+    if (this.flag == 1) return 'accent';
+    if (rating > 50) return 'primary';
+    if (rating < 50) return 'accent';
+
+
     return '';
   }
 }
